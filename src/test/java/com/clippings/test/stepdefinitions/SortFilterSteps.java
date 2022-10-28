@@ -5,7 +5,6 @@ import com.clippings.test.base.BaseTest;
 import com.clippings.test.pageobjects.ProductsPO;
 import com.clippings.test.pageobjects.SortFilterPO;
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.cucumber.datatable.DataTable;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +17,6 @@ public class SortFilterSteps {
     final ClippingsAppConfig configuration;
 
     private final WebDriver driver;
-    private final SoftAssert softAssert;
     private SortFilterPO sortFilterPO;
    private ProductsPO products;
 
@@ -27,7 +25,6 @@ public class SortFilterSteps {
         this.driver = baseSteps.getDriver();
         this.sortFilterPO = new SortFilterPO(driver);
         this.products = new ProductsPO(driver);
-        this.softAssert = new SoftAssert();
     }
 
     @Given("user is on the Clippings Products search page")

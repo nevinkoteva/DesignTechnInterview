@@ -11,11 +11,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import java.util.concurrent.TimeUnit;
 
 public class BaseSteps {
-    private static final int WAIT_TIME_FIFTEEN_SECONDS = 15;
+    private static final int WAIT_TIME_TEN_SECONDS = 10;
     WebDriver driver = null;
     private static final Logger logger = LoggerFactory.getLogger(BaseSteps.class);
 
@@ -30,7 +29,7 @@ public class BaseSteps {
         WebDriverManager.getInstance(ChromeDriver.class).setup();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(WAIT_TIME_FIFTEEN_SECONDS, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(WAIT_TIME_TEN_SECONDS, TimeUnit.SECONDS);
     }
 
     @After

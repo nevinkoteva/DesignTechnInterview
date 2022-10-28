@@ -11,12 +11,10 @@ import org.testng.asserts.SoftAssert;
 public class ProductsPageSteps {
     private static final Logger logger = LoggerFactory.getLogger(ProductsPageSteps.class);
     private final WebDriver driver;
-    private final SoftAssert softAssert;
     private ProductsPO products;
 
     public ProductsPageSteps(BaseSteps baseSteps) {
         this.driver = baseSteps.getDriver();
-        this.softAssert = new SoftAssert();
         this.products = new ProductsPO(driver);
 
     }

@@ -16,7 +16,8 @@ import java.util.List;
 public class ProductsPO {
     protected final WebDriver driver;
     private static final Logger logger = LoggerFactory.getLogger(ProductsPO.class);
-    private static final String DATA_TESTID_PRICE_XPATH = "//*[@data-testid='component-price-regular']";
+    private static final String DATA_TESTID_PRICE_XPATH = ".//*[@data-testid='component-price-regular']";
+    private static final String DATA_TILE_PRODUCT_NAME = ".//*[contains(@data-testid,'product-tile-product-name')]";
     private static final String CURRENCY_VALUE_OPTION = "//*[@data-value='%s']";
     private static final String PRODUCTS_LIST_XPATH = "//*[contains(@data-testid,'product-tile-container')]";
 
@@ -49,11 +50,12 @@ public class ProductsPO {
         Thread.sleep(1000);
 
         List<WebElement> products = driver.findElements(By.xpath(PRODUCTS_LIST_XPATH));
-
+        logger.info("Verify products' prices are between 10 and 50");
         for (WebElement product : products) {
             String price = product.findElement(By.xpath(DATA_TESTID_PRICE_XPATH)).getText();
+            String productName = product.findElement(By.xpath(DATA_TILE_PRODUCT_NAME)).getText();
             price = price.substring(1);
-            logger.info("price is {}", price);
+            logger.info("{} price is {}", productName, price);
             Double doublePrice = Double.parseDouble(price);
 
             Assert.assertTrue(doublePrice >= min && doublePrice <= max);
@@ -65,13 +67,13 @@ public class ProductsPO {
 
         List<WebElement> products = driver.findElements(By.xpath(PRODUCTS_LIST_XPATH));
 
-        for (WebElement product : products) {
+        products.forEach((product) -> {
             String price = product.findElement(By.xpath(DATA_TESTID_PRICE_XPATH)).getText();
             String currencySymbol = Character.toString(price.charAt(0));
-            logger.info("currency is {}", currencySymbol);
+            logger.info("Currency is {}. Expected currency is {}", currencySymbol, CurrencyEnum.valueOf(currency).getCurrencySymbol());
 
             Assert.assertEquals(currencySymbol, CurrencyEnum.valueOf(currency).getCurrencySymbol());
-        }
+        });
     }
 
     public String getConfiguredCurrency() {
